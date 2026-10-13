@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoply — E-Commerce Product Interface</title>
+  <meta name="description" content="Modern responsive e-commerce product catalog with search, filters and shopping cart.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand" aria-label="Shoply home">
+        <span class="brand-mark">S</span>
+        <span>shoply</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#products">Shop</a>
+        <a href="#categories">Categories</a>
+        <a href="#deals">Deals</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="wishlistBtn" class="icon-btn" aria-label="Wishlist">
+          ♡ <span id="wishlistCount">0</span>
+        </button>
+        <button id="cartBtn" class="cart-button" aria-label="Open shopping cart">
+          🛒 <span>Cart</span><b id="cartCount">0</b>
+        </button>
+        <button id="mobileMenuBtn" class="mobile-menu" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="deals">
+      <div class="hero-content">
+        <span class="hero-badge">NEW SEASON • UP TO 40% OFF</span>
+        <h1>Find things you'll<br><span>love to use.</span></h1>
+        <p>Discover thoughtfully selected products for your everyday life, from tech essentials to modern fashion.</p>
+        <a href="#products" class="hero-cta">Explore products <span>→</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="floating-card card-top">⚡ Fast delivery</div>
+        <div class="product-orb">
+          <span>NEW</span>
+          <strong>ESSENTIALS</strong>
+        </div>
+        <div class="floating-card card-bottom">★ 4.9 customer rating</div>
+      </div>
+    </section>
+
+    <section class="category-section" id="categories">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">SHOP BY CATEGORY</span>
+          <h2>What are you looking for?</h2>
+        </div>
+      </div>
+      <div id="categoryChips" class="category-chips"></div>
+    </section>
+
+    <section class="shop-layout" id="products">
+      <aside class="filters-panel" id="filtersPanel">
+        <div class="filter-heading">
+          <h3>Filters</h3>
+          <button id="clearFilters" type="button">Clear all</button>
+        </div>
+
+        <div class="filter-group">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Price range</label>
+          <div class="range-values">
+            <span>$0</span><span id="maxPriceLabel">$1,500</span>
+          </div>
+          <input id="priceFilter" type="range" min="0" max="1500" value="1500" step="25">
+        </div>
+
+        <div class="filter-group">
+          <label for="ratingFilter">Minimum rating</label>
+          <select id="ratingFilter">
+            <option value="0">Any rating</option>
+            <option value="4">4.0+ stars</option>
+            <option value="4.5">4.5+ stars</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="sortFilter">Sort by</label>
+          <select id="sortFilter">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to high</option>
+            <option value="price-high">Price: High to low</option>
+            <option value="rating">Top rated</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+
+        <label class="check-row">
+          <input id="saleFilter" type="checkbox">
+          <span>Only show deals</span>
+        </label>
+      </aside>
+
+      <section class="catalog">
+        <div class="catalog-toolbar">
+          <div>
+            <span class="section-kicker">OUR COLLECTION</span>
+            <h2>Popular products</h2>
+          </div>
+          <div class="toolbar-right">
+            <span id="resultCount">0 products</span>
+            <button id="mobileFilterBtn" class="filter-mobile-btn" type="button">☷ Filters</button>
+          </div>
+        </div>
+
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search products, categories..." autocomplete="off">
+          <kbd>Ctrl K</kbd>
+        </div>
+
+        <div id="activeFilters" class="active-filters"></div>
+        <div id="productGrid" class="product-grid"></div>
+
+        <div id="noResults" class="no-results" hidden>
+          <div>⌕</div>
+          <h3>No products found</h3>
+          <p>Try a different search or clear some filters.</p>
+          <button id="resetSearch" type="button">Reset filters</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay" hidden></div>
+
+  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <span class="section-kicker">YOUR BAG</span>
+        <h2>Shopping cart</h2>
+      </div>
+      <button id="closeCart" class="close-btn" aria-label="Close cart">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div id="emptyCart" class="empty-cart">
+      <div class="empty-cart-icon">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Add something you love and it'll appear here.</p>
+    </div>
+
+    <div class="cart-footer">
+      <div class="subtotal-row"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <p>Shipping and taxes calculated at checkout.</p>
+      <button id="checkoutBtn" class="checkout-btn" type="button">Proceed to checkout →</button>
+    </div>
+  </aside>
+
+  <div id="productModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="product-modal" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div>
+      <a href="#" class="brand"><span class="brand-mark">S</span><span>shoply</span></a>
+      <p>A modern storefront interface built for Task 5 — Advanced.</p>
+    </div>
+    <div class="footer-links">
+      <span>Product catalog</span>
+      <span>Search & filters</span>
+      <span>Shopping cart</span>
+      <span>Responsive UI</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
